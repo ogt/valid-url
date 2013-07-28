@@ -12,3 +12,37 @@ into a nodejs module.
 
 ## Installation 
 
+ *fork it to install  
+ *TODO: need add to npm
+
+## Usage
+ 
+ `
+ var validUrl = require('validUrl');
+ `  
+
+## Methods
+
+ `
+ is_uri(value)
+ `  
+ **accepts** value as string to be checked as any protocol url  
+ **returns** undefined if is not url, returns RFC 3986 url if valid
+
+ `
+ is_http_uri(value, allowHttps)
+ `  
+ **accepts** *value* as string to be checked as HTTP url, *allowHttps* as boolean to include https urls *(optional)*  
+ **returns** undefined if is not url, returns RFC 3986 url if valid  
+
+ `
+ is_https_uri(value)
+ `  
+ **accepts** value as string to be checked as HTTPS url  
+ **returns** undefined if is not url, returns RFC 3986 url if valid  
+ 
+ `
+ is_web_uri(value)
+ `  
+ **accepts** value as string to be checked as HTTP or HTTPS url  
+ **returns** undefined if is not url, returns RFC 3986 url if valid  
