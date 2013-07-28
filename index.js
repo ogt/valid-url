@@ -3,7 +3,6 @@
 	module.exports.is_http_uri = is_http_iri;
 	module.exports.is_https_uri = is_https_iri;
 	module.exports.is_web_uri = is_web_iri;
-	/* code to be written */
 
 	// private function
 	// internal URI spitter method - direct from RFC 3986
@@ -29,33 +28,33 @@
 			query = '',
 			fragment = '',
 			out = '';
-
+		
 		// from RFC 3986
 		splitted = splitUri(value);
-		scheme = splitted[0]; 
-		authority = splitted[1];
-		path = splitted[2];
-		query = splitted[3];
-		fragment = splitted[4];
+		scheme = splitted[1]; 
+		authority = splitted[2];
+		path = splitted[3];
+		query = splitted[4];
+		fragment = splitted[5];
 
 		// scheme and path are required, though the path can be empty
 		if (!(scheme && scheme.length && path)) {
 			return;
 		}
-
+		
 		// if authority is present, the path must be empty or begin with a /
 		if (authority && authority.length) {
-			if !(path.length || /^\//.test(path)) return;
+			if (!(path.length || /^\//.test(path))) return;
 		} else {
 			// if authority is not present, the path must not start with //
 			if (/^\/\//.test(path)) return;
 		}
-
+		
 		// scheme must begin with a letter, then consist of letters, digits, +, ., or -
 		if (!/^[a-z][a-z0-9\+\-\.]*$/.test(scheme.toLowerCase())) {
 			return;
 		}
-
+		
 		// re-assemble the URL per section 5.3 in RFC 3986
 		out += scheme + ':';
 		if (authority && authority.length) {
@@ -91,18 +90,20 @@
 
 		// from RFC 3986
 		splitted = splitUri(value);
-		scheme = splitted[0]; 
-		authority = splitted[1];
-		path = splitted[2];
-		query = splitted[3];
-		fragment = splitted[4];
+		scheme = splitted[1]; 
+		authority = splitted[2];
+		path = splitted[3];
+		query = splitted[4];
+		fragment = splitted[5];
 
 		if (!scheme) {
 			return;
 		}
 
-		if (scheme.toLowerCase() !== 'http' || !(allowHttps && scheme.toLowerCase() === 'https')) {
-			return;
+		if (scheme.toLowerCase() !== 'http') {
+			if (!(allowHttps && scheme.toLowerCase() === 'https')) {
+				return;
+			}
 		}
 
 		// fully-qualified URIs must have an authority section that is
@@ -111,15 +112,17 @@
 			return;
 		}
 
-		// eanble port component
-		port = /:(\d+)$/.match(authority)[0];
-		authority = authority.replace(/:\d+$\//, '');
+		// enable port component
+		if (/:(\d+)$/.test(authority)) {
+			port = authority.match(/:(\d+)$/)[0];
+			authority = authority.replace(/:\d+$/, '');
+		}
 
 		out += scheme + ':';
 		out += '//' + authority;
 		
 		if (port) {
-			out += ':' + port;
+			out += port;
 		}
 		
 		out += path;
