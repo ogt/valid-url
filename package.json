@@ -1,8 +1,14 @@
 {
   "name": "valid-url",
   "description": "URI validation functions",
-  "keywords" : [ "url", "validation", "check", "checker", "pattern"],
-  "version": "1.0.0",
+  "keywords": [
+    "url",
+    "validation",
+    "check",
+    "checker",
+    "pattern"
+  ],
+  "version": "1.0.1",
   "repository": {
     "url": "git://github.com/ogt/valid-url.git"
   },
@@ -10,8 +16,7 @@
   "scripts": {
     "test": "make test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "tap": "~0.4.3",
     "jshint": "~2.1.4",
