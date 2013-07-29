@@ -41,7 +41,7 @@ var validURI = {
 		return false;
 	},
 	isWebURI: function (uri) {
-		return (this.isHttpURI(uri) || this.isHttpsURI(uri)) ? uri : false;
+		return (this.isHttpURI(uri) || this.isHttpsURI(uri));
 	}
 }
 
