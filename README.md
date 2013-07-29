@@ -18,7 +18,7 @@ into a nodejs module.
 ## Usage
  
  `
- var validUrl = require('validUrl');
+ var validUrl = require('valid-url');
  `  
 
 ## Methods
