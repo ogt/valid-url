@@ -3,12 +3,12 @@ util = require("util");
 
 var validURI = {
     isURI: function (uri) {
-  	if (typeof(uri) !== 'string') {
+		if (typeof(uri) !== 'string') {
 			return false;
 		}
 		try {
-			uri = decodeURI(uri);
-			return true;
+			var decode_uri = decodeURI(uri);
+			return uri;
 		} catch (e) {
 			/*
 			if (e instanceof URIError) {
@@ -25,9 +25,8 @@ var validURI = {
 				return false;
 			}
 			var url_parts = url.parse(uri);
-			//console.log(util.inspect(url_parts, {colors: true}));
 			if (url_parts.protocol === 'http:' && !!url_parts.host) {
-				return true;
+				return uri;
 			}
 			return false;
 	},
@@ -36,14 +35,13 @@ var validURI = {
 			return false;
 		}
 		var url_parts = url.parse(uri);
-		//console.log(util.inspect(url_parts, {colors: true}));
 		if (url_parts.protocol === 'https:' && !!url_parts.host) {
-			return true;
+			return uri;
 		}
 		return false;
 	},
 	isWebURI: function (uri) {
-		return (this.isHttpURI(uri) || this.isHttpsURI(uri));
+		return (this.isHttpURI(uri) || this.isHttpsURI(uri)) ? uri : false;
 	}
 }
 
