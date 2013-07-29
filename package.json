@@ -1,7 +1,7 @@
 {
   "name": "valid-url",
   "description": "URI validation functions",
-  "keywords" : [ 'url', 'validation', 'check', 'checker', 'pattern'],
+  "keywords" : [ "url", "validation", "check", "checker", "pattern"],
   "version": "1.0.0",
   "repository": {
     "url": "git://github.com/ogt/valid-url.git"
