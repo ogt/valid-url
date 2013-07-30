@@ -24,11 +24,11 @@ It passes all the original tests.
 
 (copied from original perl module)
 
-This module collects common URI validation routines to make input validation, and untainting easier and more readable.
-All functions return an untainted value if the test passes, and undef if it fails. This means that you should always check for a defined status explicitly. Don't assume the return will be true.
-The value to test is always the first (and often only) argument.
-There are a number of other URI validation modules out there as well (see below.) This one focuses on being fast, lightweight, and relatively 'real-world'. i.e. it's good if you want to check user input, and don't need to parse out the URI/URL into chunks.
-Right now the module focuses on HTTP URIs, since they're arguably the most common. If you have a specialized scheme you'd like to have supported, let me know.
+> This module collects common URI validation routines to make input validation, and untainting easier and more readable.
+> All functions return an untainted value if the test passes, and undef if it fails. This means that you should always check for a defined status explicitly. Don't assume the return will be true.
+> The value to test is always the first (and often only) argument.
+> There are a number of other URI validation modules out there as well (see below.) This one focuses on being fast, lightweight, and relatively 'real-world'. i.e. it's good if you want to check user input, and don't need to parse out the URI/URL into chunks.
+> Right now the module focuses on HTTP URIs, since they're arguably the most common. If you have a specialized scheme you'd like to have supported, let me know.
 
 ## Installation 
 
