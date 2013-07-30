@@ -5,6 +5,12 @@
     module.exports.is_http_uri = is_http_iri;
     module.exports.is_https_uri = is_https_iri;
     module.exports.is_web_uri = is_web_iri;
+    // Create aliases
+    module.exports.isUri = is_iri;
+    module.exports.isHttpUri = is_http_iri;
+    module.exports.isHttpsUri = is_https_iri;
+    module.exports.isWebUri = is_web_iri;
+
 
     // private function
     // internal URI spitter method - direct from RFC 3986
