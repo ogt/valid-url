@@ -1,155 +1,57 @@
 (function(module) {
-	'use strict';
+    'use strict';
 
-	module.exports.is_uri = is_iri;
-	module.exports.is_http_uri = is_http_iri;
-	module.exports.is_https_uri = is_https_iri;
-	module.exports.is_web_uri = is_web_iri;
+    var
+        url = require("url")
+    ;
 
-	// private function
-	// internal URI spitter method - direct from RFC 3986
-	var splitUri = function(uri) {
-		var splitted = uri.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?/);
-		return splitted;
-	};
+    var validURI = {
+        isURI: function (uri) {
+            if (typeof(uri) !== 'string') {
+                return false;
+            }
+            try {
+                return uri;
+            } catch (e) {
+                /*
+                if (e instanceof URIError) {
+                    //Eror decode uri
+                    return false;
+                }
+                */
+                // Other error
+                return false;
+            }
+        },
+        isHttpURI: function (uri, allowHttps) {
+            if (!this.isURI(uri)) {
+                return false;
+            }
+            var
+                url_parts = url.parse(uri),
+                allowedProto = ['http:']
+            ;
+            if (!!allowHttps) {
+                allowedProto.push('https:');
+            }
+            if ((allowedProto.indexOf(url_parts.protocol) !== -1) && !!url_parts.host) {
+                return uri;
+            }
+            return false;
+        },
+        isHttpsURI: function (uri) {
+            return this.isHttpURI(uri, true);
+        },
+        isWebURI: function (uri) {
+            return this.isHttpURI(uri, true);
+        }
+    };
 
-	function is_iri(value) {
-		if (!value) {
-			return;
-		}
+    // Create aliases
+    validURI.is_uri = validURI.isURI;
+    validURI.is_http_uri = validURI.isHttpURI;
+    validURI.is_https_uri = validURI.isHttpsURI;
+    validURI.is_web_uri = validURI.isWebURI;
 
-		// check for illegal characters
-		if (/[^a-z0-9\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=\.\-\_\~]/i.test(value)) {
-			return;
-		}
-
-		var splitted = [];
-		var	scheme = '';
-		var	authority = '';
-		var	path = '';
-		var	query = '';
-		var	fragment = '';
-		var	out = '';
-
-		// from RFC 3986
-		splitted = splitUri(value);
-		scheme = splitted[1]; 
-		authority = splitted[2];
-		path = splitted[3];
-		query = splitted[4];
-		fragment = splitted[5];
-
-		// scheme and path are required, though the path can be empty
-		if (!(scheme && scheme.length && path)) {
-			return;
-		}
-
-		// if authority is present, the path must be empty or begin with a /
-		if (authority && authority.length) {
-			if (!(path.length || /^\//.test(path)))  {
-				return;
-			}
-		} else {
-			// if authority is not present, the path must not start with //
-			if (/^\/\//.test(path)) {
-				return;
-			}
-		}
-
-		// scheme must begin with a letter, then consist of letters, digits, +, ., or -
-		if (!/^[a-z][a-z0-9\+\-\.]*$/.test(scheme.toLowerCase())) {
-			return;
-		}
-
-		// re-assemble the URL per section 5.3 in RFC 3986
-		out += scheme + ':';
-		if (authority && authority.length) {
-			out += '//' + authority;
-		}
-
-		out += path;
-
-		if (query && query.length) {
-			out += '?' + query;
-		}
-
-		if (fragment && fragment.length) {
-			out += '#' + fragment;
-		}
-
-		return out;
-	}
-
-	function is_http_iri(value, allowHttps) {
-		if (!is_iri(value)) {
-			return;
-		}
-
-		var splitted = [];
-		var	scheme = '';
-		var	authority = '';
-		var	path = '';
-		var	port = '';
-		var	query = '';
-		var	fragment = '';
-		var	out = '';
-
-		// from RFC 3986
-		splitted = splitUri(value);
-		scheme = splitted[1]; 
-		authority = splitted[2];
-		path = splitted[3];
-		query = splitted[4];
-		fragment = splitted[5];
-
-		if (!scheme) {
-			return;
-		}
-
-		if (scheme.toLowerCase() !== 'http') {
-			if (!(allowHttps && scheme.toLowerCase() === 'https')) {
-				return;
-			}
-		}
-
-		// fully-qualified URIs must have an authority section that is
-		// a valid host
-		if (!authority) {
-			return;
-		}
-
-		// enable port component
-		if (/:(\d+)$/.test(authority)) {
-			port = authority.match(/:(\d+)$/)[0];
-			authority = authority.replace(/:\d+$/, '');
-		}
-
-		out += scheme + ':';
-		out += '//' + authority;
-		
-		if (port) {
-			out += port;
-		}
-		
-		out += path;
-		
-		if(query && query.length){
-			out += '?' + query;
-		}
-
-		if(fragment && fragment.length){
-			out += '#' + fragment;
-		}
-		
-		return out;
-	}
-
-	function is_https_iri(value) {
-		return is_http_iri(value, true);
-	}
-
-	function is_web_iri(value) {
-		return (is_http_iri(value) || is_https_iri(value));
-	}
-
+    module.exports = validURI;
 })(module);
