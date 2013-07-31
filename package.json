@@ -8,7 +8,7 @@
     "checker",
     "pattern"
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "repository": {
     "url": "git://github.com/ogt/valid-url.git"
   },
