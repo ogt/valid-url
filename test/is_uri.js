@@ -19,17 +19,17 @@ test("testing is_uri", function (t) {
 
 
     // invalid
-    t.ok(!is_uri(''), "bad: ''");
-    t.ok(!is_uri('foo'), 'bad: foo');
-    t.ok(!is_uri('foo@bar'), 'bad: foo@bar');
-    t.ok(!is_uri('http://<foo>'), 'bad: http://<foo>'); // illegal characters
-    t.ok(!is_uri('://bob/'), 'bad: ://bob/'); // empty schema
-    t.ok(!is_uri('1http://bob'), 'bad: 1http://bob/'); // bad schema
-    t.ok(!is_uri('1http:////foo.html'), 'bad: 1http://bob/'); // bad path
-    t.ok(!is_uri('http://example.w3.org/%illegal.html'), 'http://example.w3.org/%illegal.html');
-    t.ok(!is_uri('http://example.w3.org/%a'), 'http://example.w3.org/%a'); // partial escape
-    t.ok(!is_uri('http://example.w3.org/%a/foo'), 'http://example.w3.org/%a/foo'); // partial escape
-    t.ok(!is_uri('http://example.w3.org/%at'), 'http://example.w3.org/%at'); // partial escape
+    t.notOk(is_uri(''), "bad: ''");
+    t.notOk(is_uri('foo'), 'bad: foo');
+    t.notOk(is_uri('foo@bar'), 'bad: foo@bar');
+    t.notOk(is_uri('http://<foo>'), 'bad: http://<foo>'); // illegal characters
+    t.notOk(is_uri('://bob/'), 'bad: ://bob/'); // empty schema
+    t.notOk(is_uri('1http://bob'), 'bad: 1http://bob/'); // bad schema
+    t.notOk(is_uri('1http:////foo.html'), 'bad: 1http://bob/'); // bad path
+    t.notOk(is_uri('http://example.w3.org/%illegal.html'), 'http://example.w3.org/%illegal.html');
+    t.notOk(is_uri('http://example.w3.org/%a'), 'http://example.w3.org/%a'); // partial escape
+    t.notOk(is_uri('http://example.w3.org/%a/foo'), 'http://example.w3.org/%a/foo'); // partial escape
+    t.notOk(is_uri('http://example.w3.org/%at'), 'http://example.w3.org/%at'); // partial escape
 
     t.end();
 });

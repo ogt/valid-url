@@ -19,8 +19,6 @@
   "dependencies": {},
   "devDependencies": {
     "tap": "~0.4.3",
-    "jshint": "~2.1.4",
-    "assert": "*",
-    "vows": "*"
+    "jshint": "~2.1.4"
   }
 }

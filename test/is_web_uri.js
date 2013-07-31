@@ -1,51 +1,28 @@
-(function() {
-	'use strict';
-	var assert = require('assert'),
-		vows = require('vows'),
-		validUrl = require('../');
+var test = require("tap").test,
+    is_web_uri = require('../').is_web_uri;
 
-	vows.describe('valid-url').addBatch({
-		'Web full url checking': {
-			topic: validUrl.is_web_uri('http://test:testPasswd@testdomain.com:8081/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test?test=test#123');
-			}
-		},
-		'Web url-params checking': {
-			topic: validUrl.is_web_uri('http://test:testPasswd@testdomain.com:8081/test?test=test'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test?test=test');
-			}
-		},
-		'Web url checking': {
-			topic: validUrl.is_web_uri('http://test:testPasswd@testdomain.com:8081/test'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test');
-			}
-		},
-		'Web default port checking': {
-			topic: validUrl.is_web_uri('http://test:testPasswd@testdomain.com/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com/test?test=test#123');
-			}
-		},
-		'Web anonymous checking': {
-			topic: validUrl.is_web_uri('http://testdomain.com:8081/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://testdomain.com:8081/test?test=test#123');
-			}
-		},
-		'Web https allow checking': {
-			topic: validUrl.is_web_uri('https://test:testPasswd@testdomain.com:8081/test?test=test#123', true),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'https://test:testPasswd@testdomain.com:8081/test?test=test#123');
-			}
-		}
-	}).export(module);
-})(module);
+test("testing is_web_uri", function (t) {
+
+    // valid
+    t.ok(is_web_uri('https://www.richardsonnen.com/'), 'https://www.richardsonnen.com/');
+    t.ok(is_web_uri('https://www.richardsonnen.com'), 'https://www.richardsonnen.com');
+    t.ok(is_web_uri('https://www.richardsonnen.com/foo/bar/test.html'), 'https://www.richardsonnen.com/foo/bar/test.html');
+    t.ok(is_web_uri('https://www.richardsonnen.com/?foo=bar'), 'https://www.richardsonnen.com/?foo=bar');
+    t.ok(is_web_uri('https://www.richardsonnen.com:8080/test.html'), 'https://www.richardsonnen.com:8080/test.html');
+    t.ok(is_web_uri('http://www.richardsonnen.com/'), 'http://www.richardsonnen.com/');
+    t.ok(is_web_uri('http://www.richardsonnen.com'), 'http://www.richardsonnen.com');
+    t.ok(is_web_uri('http://www.richardsonnen.com/foo/bar/test.html'), 'http://www.richardsonnen.com/foo/bar/test.html');
+    t.ok(is_web_uri('http://www.richardsonnen.com/?foo=bar'), 'http://www.richardsonnen.com/?foo=bar');
+    t.ok(is_web_uri('http://www.richardsonnen.com:8080/test.html'), 'http://www.richardsonnen.com:8080/test.html');
+    t.ok(is_web_uri('http://example.w3.org/path%20with%20spaces.html'), 'http://example.w3.org/path%20with%20spaces.html');
+    t.ok(is_web_uri('http://192.168.0.1/'), 'http://192.168.0.1/');
+
+    // invalid
+    t.ok(!is_web_uri(''), "bad: ''");
+    t.ok(!is_web_uri('ftp://ftp.richardsonnen.com'), "bad: 'ftp://ftp.richardsonnen.com'");
+    t.ok(!is_web_uri('https:www.richardsonnen.com'), "bad: 'http:www.richardsonnen.com'");
+    t.ok(!is_web_uri('http:www.richardsonnen.com'), "bad: 'http:www.richardsonnen.com'");
+
+
+    t.end();
+});

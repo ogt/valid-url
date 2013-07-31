@@ -1,51 +1,22 @@
-(function() {
-	'use strict';
-	var assert = require('assert'),
-		vows = require('vows'),
-		validUrl = require('../');
+var test = require("tap").test,
+    is_http_uri = require('../').is_http_uri;
 
-	vows.describe('valid-url').addBatch({
-		'HTTP full url checking': {
-			topic: validUrl.is_http_uri('http://test:testPasswd@testdomain.com:8081/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test?test=test#123');
-			}
-		},
-		'HTTP url-params checking': {
-			topic: validUrl.is_http_uri('http://test:testPasswd@testdomain.com:8081/test?test=test'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test?test=test');
-			}
-		},
-		'HTTP url checking': {
-			topic: validUrl.is_http_uri('http://test:testPasswd@testdomain.com:8081/test'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com:8081/test');
-			}
-		},
-		'HTTP default port checking': {
-			topic: validUrl.is_http_uri('http://test:testPasswd@testdomain.com/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://test:testPasswd@testdomain.com/test?test=test#123');
-			}
-		},
-		'HTTP anonymous checking': {
-			topic: validUrl.is_http_uri('http://testdomain.com:8081/test?test=test#123'),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'http://testdomain.com:8081/test?test=test#123');
-			}
-		},
-		'HTTPS allow checking': {
-			topic: validUrl.is_http_uri('https://test:testPasswd@testdomain.com:8081/test?test=test#123', true),
-			'result should be valid': function (result) {
-				assert.isString(result);
-				assert.equal(result, 'https://test:testPasswd@testdomain.com:8081/test?test=test#123');
-			}
-		}
-	}).export(module);
-})(module);
+test("testing is_http_uri", function (t) {
+
+    // valid
+    t.ok(is_http_uri('http://www.richardsonnen.com/'), 'http://www.richardsonnen.com/');
+    t.ok(is_http_uri('http://www.richardsonnen.com'), 'http://www.richardsonnen.com');
+    t.ok(is_http_uri('http://www.richardsonnen.com/foo/bar/test.html'), 'http://www.richardsonnen.com/foo/bar/test.html');
+    t.ok(is_http_uri('http://www.richardsonnen.com/?foo=bar'), 'http://www.richardsonnen.com/?foo=bar');
+    t.ok(is_http_uri('http://www.richardsonnen.com:8080/test.html'), 'http://www.richardsonnen.com:8080/test.html');
+    t.ok(is_http_uri('http://example.w3.org/path%20with%20spaces.html'), 'http://example.w3.org/path%20with%20spaces.html');
+    t.ok(is_http_uri('http://192.168.0.1/'), 'http://192.168.0.1/');
+
+    // invalid
+    t.notOk(is_http_uri(''), "bad: ''");
+    t.notOk(is_http_uri('ftp://ftp.richardsonnen.com'), "bad: 'ftp://ftp.richardsonnen.com'");
+    t.notOk(is_http_uri('http:www.richardsonnen.com'), "bad: 'http:www.richardsonnen.com'");
+    t.notOk(is_http_uri('https://www.richardsonnen.com'), "bad: 'https://www.richardsonnen.com'");
+
+    t.end();
+});
