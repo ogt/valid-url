@@ -17,7 +17,7 @@ Common url validation methods
 
 Replicates the functionality of Richard Sonnen <sonnen@richardsonnen.com> perl module :
 http://search.cpan.org/~sonnen/Data-Validate-URI-0.01/lib/Data/Validate/URI.pm [full code here](http://anonscm.debian.org/gitweb/?p=users/dom/libdata-validate-uri-perl.git)
-into a nodejs module. Initially translated practically line by line from perl. Subsequently rewritten to leverage [url](http://nodejs.org/api/url.html).
+into a nodejs module. Translated practically line by line from perl. 
 It passes all the original tests.
 
 ## Description
