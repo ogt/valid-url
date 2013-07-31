@@ -127,3 +127,15 @@ It passes all the original tests.
  */
  
 ```
+
+## SEE ALSO 
+=head1 SEE ALSO
+
+RFC 3986, RFC 3966, RFC 4694, RFC 4759, RFC 4904
+
+## AUTHOR
+
+Original Perl module author : Richard Sonnen <sonnen@richardsonnen.com>>.
+Porting to nodejs : Sergei Zholudev <zholudev.s@gmail.com>, Odysseas Tsatalos <odysseas@tsatalos.com>
+
+
