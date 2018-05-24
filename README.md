@@ -6,9 +6,9 @@ URI validation functions
 
 Common url validation methods 
 ```
-var validUrl = require('valid-url');
+const validUrl = require('valid-url');
   
-if (validUrl.isUri(suspect)){
+if (validUrl.isUri(url)){
     console.log('Looks like an URI');
 } else {
     console.log('Not a URI');
