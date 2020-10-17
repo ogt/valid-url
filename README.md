@@ -6,13 +6,13 @@ URI validation functions
 
 Common url validation methods 
 ```
-    var validUrl = require('valid-url');
+const validUrl = require('valid-url');
   
-    if (validUrl.isUri(suspect)){
-        console.log('Looks like an URI');
-    } else {
-        console.log('Not a URI');
-    }
+if (validUrl.isUri(url)){
+    console.log('Looks like an URI');
+} else {
+    console.log('Not a URI');
+}
 ```
 
 Replicates the functionality of Richard Sonnen <sonnen@richardsonnen.com> perl module :
@@ -33,7 +33,7 @@ It passes all the original tests.
 ## Installation 
 
 ```
-    npm install valid-url
+npm install valid-url
 ```
 
 ## Methods
