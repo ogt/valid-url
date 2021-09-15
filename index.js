@@ -25,7 +25,7 @@
         }
 
         // check for illegal characters
-        if (/[^a-z0-9\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=\.\-\_\~\%]/i.test(value)) return;
+        if (/[^a-z0-9ก-๛\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=\.\-\_\~\%]/i.test(value)) return;
 
         // check for hex escapes that aren't complete
         if (/%[^0-9a-f]/i.test(value)) return;
@@ -59,7 +59,7 @@
         }
 
         // scheme must begin with a letter, then consist of letters, digits, +, ., or -
-        if (!/^[a-z][a-z0-9\+\-\.]*$/.test(scheme.toLowerCase()))  return;
+        if (!/^[ก-๛a-z][ก-๛a-z0-9\+\-\.]*$/.test(scheme.toLowerCase()))  return;
 
         // re-assemble the URL per section 5.3 in RFC 3986
         out += scheme + ':';

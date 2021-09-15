@@ -23,7 +23,7 @@
     "test": "make test"
   },
   "devDependencies": {
-    "tap": "~0.4.3",
-    "jshint": "~2.1.4"
+    "jshint": "~2.1.4",
+    "tap": "~0.4.3"
   }
 }
