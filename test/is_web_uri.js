@@ -5,6 +5,7 @@ test("testing is_web_uri", function (t) {
 
     // valid
     t.ok(is_web_uri('https://www.richardsonnen.com/'), 'https://www.richardsonnen.com/');
+    t.ok(is_web_uri('https://www.กกกก.ไทย/'), 'https://www.กกก.ไทย/');
     t.ok(is_web_uri('https://www.richardsonnen.com'), 'https://www.richardsonnen.com');
     t.ok(is_web_uri('https://www.richardsonnen.com/foo/bar/test.html'), 'https://www.richardsonnen.com/foo/bar/test.html');
     t.ok(is_web_uri('https://www.richardsonnen.com/?foo=bar'), 'https://www.richardsonnen.com/?foo=bar');
