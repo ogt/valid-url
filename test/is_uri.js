@@ -16,6 +16,9 @@ test("testing is_uri", function (t) {
     t.ok(is_uri('tel:+1-816-555-1212'), 'tel:+1-816-555-1212');
     t.ok(is_uri('telnet://192.0.2.16:80/'), 'telnet://192.0.2.16:80/');
     t.ok(is_uri('urn:oasis:names:specification:docbook:dtd:xml:4.1.2'), 'urn:oasis:names:specification:docbook:dtd:xml:4.1.2');
+    t.ok(is_uri('//example.w3.org'), '//example.w3.org');
+    t.ok(is_uri('//example'), '//example');
+    t.ok(is_uri('http:/172.0.0.1:80/'), 'http://172.0.0.1:80/');
 
 
     // invalid
